@@ -19,26 +19,26 @@ pipeline {
                 )]) {
                     dir('dev') {
                         sh 'terraform init'
-                        sh 'terraform destroy -auto-approve -var-file=dev.tfvars'
+                        sh 'terraform apply -auto-approve -var-file=dev.tfvars'
                     }
                 }
             }
         }
 
-        stage('Terraform Deploy Prod') {
-            steps {
-                withCredentials([aws(
-                    credentialsId: 'AWS-DEV',
-                    accessKeyVariable: 'AWS_ACCESS_KEY_ID',
-                    secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
-                )]) {
-                    dir('prod') {
-                        sh 'terraform init'
-                        sh 'terraform apply -auto-approve -var-file=prod.tfvars'
-                    }
-                }
-            }
-        }
+        // stage('Terraform Deploy Prod') {
+        //     steps {
+        //         withCredentials([aws(
+        //             credentialsId: 'AWS-DEV',
+        //             accessKeyVariable: 'AWS_ACCESS_KEY_ID',
+        //             secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
+        //         )]) {
+        //             dir('prod') {
+        //                 sh 'terraform init'
+        //                 sh 'terraform apply -auto-approve -var-file=prod.tfvars'
+        //             }
+        //         }
+        //     }
+        // }
 
     }
 }
